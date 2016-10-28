@@ -13,7 +13,7 @@ class Collection extends Model {
             $this->mongo->{$db}->createCollection($collection,$options);
             $this->deleteTemporaryDb($db);
             if (!$capped) {
-                $this->mongo->{$db}->selectCollection($collection)->ensureIndex(array("_id" => 1));
+                $this->mongo->{$db}->{$collection}->createIndex(array("_id" => 1));
             }
             return TRUE;
         } catch (Exception $e) {
@@ -46,9 +46,9 @@ class Collection extends Model {
                     return $response['retval'];
                 }
                 return 10;//default limit
-            }else{
+            } else {
                 if(is_array($query)){
-                    return $this->mongo->{$db}->{$collection}->find($query)->count();
+                    return $this->mongo->{$db}->{$collection}->count($query);
                 }else{
                     return $this->mongo->{$db}->{$collection}->count();
                 }
@@ -60,7 +60,7 @@ class Collection extends Model {
 
     public function getIndexInfo($db, $collection) {
         try {
-            return $this->mongo->{$db}->{$collection}->getIndexInfo();
+            return $this->mongo->{$db}->{$collection}->listIndexes();
         } catch (Exception $e) {
             exit($e->getMessage());
         }
@@ -68,7 +68,7 @@ class Collection extends Model {
 
     public function deleteIndex($db, $collection, $name) {
         try {
-            return $this->mongo->{$db}->command(array("deleteIndexes" => $this->mongo->{$db}->{$collection}->getName(), "index" => $name));
+            return $this->mongo->{$db}->{$collection}->dropIndex($name);
         } catch (Exception $e) {
             exit($e->getMessage());
         }
@@ -77,7 +77,7 @@ class Collection extends Model {
     public function createIndex($db, $collection, $key, $options = array()) {
 
         try {
-            return $this->mongo->{$db}->{$collection}->ensureIndex($key, $options);
+            return $this->mongo->{$db}->{$collection}->createIndex($key, $options);
         } catch (Exception $e) {
             exit($e->getMessage());
         }
@@ -94,7 +94,7 @@ class Collection extends Model {
                 return '{"_id" : NumberInt("' . $id . '")}';
             }elseif($idType == 'double'){
                 return '{"_id" : NumberLong("' . $id . '")}';
-            }else {           
+            }else {
                 return '{"_id" : "' . $id . '"}';
             }
         } else {
@@ -116,7 +116,7 @@ class Collection extends Model {
     public function removeById($db, $collection, $id, $idType = 'object') {
         try {
             $query = $this->getQueryForId($id, $idType);
-            return $this->mongo->{$db}->{$collection}->remove($query, array("justOne" => true));
+            return $this->mongo->{$db}->{$collection}->deleteOne($query, array("justOne" => true));
         } catch (Exception $e) {
             exit($e->getMessage());
         }

@@ -23,6 +23,7 @@
                 </thead>
                 <tbody>
                     <?php foreach ($this->data['indexes'] as $index) { ?>
+
                         <tr>
                             <td><?php echo $index['v']; ?></td>
                             <td><?php echo $this->data['cryptography']->highlight($this->data['cryptography']->arrayToJSON($index['key'])); ?></td>
@@ -37,13 +38,13 @@
                     <?php } ?>
                 </tbody>
             </table>
-        </div>     
-        <?php 
+        </div>
+        <?php
         if(!Application::isReadonly())
-            require_once '_create_index.php'; 
+            require_once '_create_index.php';
     ?>
 
     </div>
 </div>
- 
+
 

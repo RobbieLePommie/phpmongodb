@@ -30,8 +30,7 @@ class Cryptography {
     }
 
     public function decodeCursor($cursor) {
-        while ($cursor->hasNext()) {
-            $document = $cursor->getNext();
+        foreach ($cursor as $document) {
             $this->data['document'][] = $document;
             $this->data['json'][] = $this->highlight($this->arrayToJSON($document));
             $this->data['array'][] = $this->highlight($this->arrayToString($document));
@@ -102,56 +101,61 @@ class Cryptography {
     }
 
     function arrayToJSON($array, $tab = "") {
-        if (!is_array($array)) {
+        if (is_a($array, 'MongoDB\Model\BSONDocument')) {
+            $bson = MongoDB\BSON\fromPHP($array);
+            return MongoDB\BSON\toJSON($bson);
+        } elseif (is_array($array)) {
+            $associative = count(array_diff(array_keys($array), array_keys(array_keys($array))));
+            if ($associative) {
+
+                $construct = array();
+                foreach ($array as $key => $value) {
+
+                    if (is_numeric($key)) {
+                        $key = "key_$key";
+                    }
+                    $key = "'" . addslashes($key) . "'";
+
+                    if (is_array($value)) {
+                        $value = $this->arrayToJSON($value, "$tab\t");
+                    } else if (is_object($value)) {
+                        $value = $this->objectToJSON($value);
+                    } else if (is_double($value)) {
+                        $value = "NumberLong(" . addslashes($value) . ")";
+                    } else if (!is_numeric($value) || is_string($value)) {
+                        $value = "'" . addslashes($value) . "'";
+                    }
+
+                    $construct[] = "\n\t$tab" . "$key: $value";
+                }
+
+
+                $result = "{" . implode(",", $construct) . "\n$tab}";
+            } else { // If the array is a vector (not associative):
+                $construct = array();
+                foreach ($array as $value) {
+
+                    if (is_array($value)) {
+                        $value = $this->arrayToJSON($value, "$tab\t");
+                    } else if (is_object($value)) {
+                        $value = $this->objectToJSON($value);
+                    } else if (!is_numeric($value) || is_string($value)) {
+                        $value = "'" . addslashes($value) . "'";
+                    }
+
+
+                    $construct[] = $value;
+                }
+
+
+                $result = "[ " . implode(", ", $construct) . " ]";
+            }
+            return $result;
+
+        } else {
             return false;
         }
-        $associative = count(array_diff(array_keys($array), array_keys(array_keys($array))));
-        if ($associative) {
 
-            $construct = array();
-            foreach ($array as $key => $value) {
-
-                if (is_numeric($key)) {
-                    $key = "key_$key";
-                }
-                $key = "'" . addslashes($key) . "'";
-
-                if (is_array($value)) {
-                    $value = $this->arrayToJSON($value, "$tab\t");
-                } else if (is_object($value)) {
-                    $value = $this->objectToJSON($value);
-                } else if (is_double($value)) {
-                    $value = "NumberLong(" . addslashes($value) . ")";
-                } else if (!is_numeric($value) || is_string($value)) {
-                    $value = "'" . addslashes($value) . "'";
-                }
-
-                $construct[] = "\n\t$tab" . "$key: $value";
-            }
-
-
-            $result = "{" . implode(",", $construct) . "\n$tab}";
-        } else { // If the array is a vector (not associative):
-            $construct = array();
-            foreach ($array as $value) {
-
-                if (is_array($value)) {
-                    $value = $this->arrayToJSON($value, "$tab\t");
-                } else if (is_object($value)) {
-                    $value = $this->objectToJSON($value);
-                } else if (!is_numeric($value) || is_string($value)) {
-                    $value = "'" . addslashes($value) . "'";
-                }
-
-
-                $construct[] = $value;
-            }
-
-
-            $result = "[ " . implode(", ", $construct) . " ]";
-        }
-
-        return $result;
     }
 
     public function objectToJSON($object) {
@@ -187,9 +191,15 @@ class Cryptography {
             case "MongoCode":
                 $json = $object->__toString();
                 break;
+            case "MongoDB\Model\BSONDocument":
+                $bson = MongoDB\BSON\fromPHP($object);
+                $json =  MongoDB\BSON\toJSON($bson);
+                break;
             default:
                 if (method_exists($object, "__toString")) {
-                    return $object->__toString();
+                    $json = $object->__toString();
+                } else {
+                    $json = getType($object);
                 }
         }
         return $json;
@@ -245,15 +255,15 @@ class Cryptography {
                 }
             }
         }
-  
-            
+
+
             $array=@eval($string);
             if (error_get_last())
                 return false;
             return $array;
-       
+
     }
-    
+
     public function executeAND($query) {
         $key = array_search('$and', $query);
 
@@ -333,22 +343,22 @@ class Cryptography {
         return $query;
     }
 
-   
+
     public function mixedToJson($data=NULL,$highlight=FALSE){
         if(is_array($data)){
             $json= $this->arrayToJSON($data);
         }elseif (is_object($data)) {
             $json= $this->objectToJSON($data);
-        }else if(is_bool($data)){ 
+        }else if(is_bool($data)){
             $json=$data?'true':'false';
         }else {
             $json= $data;
-            
+
         }
         if($highlight )
             $json=$this->highlight ($json);
         return $json;
-        
+
     }
      public function debug($a) {
         echo "<pre>";

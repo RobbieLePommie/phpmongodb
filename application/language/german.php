@@ -46,7 +46,7 @@ $language = array(
     'B_I' => 'Build Information',
     //application/views/Database/index.php
     'NAME' => 'Name',
-    'S_O_D' => 'size On Disk',
+    'S_O_D' => 'Size On Disk',
     'C_DB' => 'Create Database',
     'SAVE' => 'Save',
     'CANCEL' => 'stornieren',

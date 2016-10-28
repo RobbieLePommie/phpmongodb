@@ -12,10 +12,11 @@
                         <td><?PHP I18n::p('W_S');?></td>
                         <td><?php echo $this->data['webserver']; ?></td>
                     </tr>
-                    <?php if(isset($this->data['mongoinfo']['version'])){?>
+                    <?php
+                    if(isset($this->data['mongoinfo']->version)){?>
                     <tr>
                         <td><?PHP I18n::p('MONGODB_V');?></td>
-                        <td><?php echo $this->data['mongoinfo']['version']; ?></td>
+                        <td><?php echo $this->data['mongoinfo']->version; ?></td>
                     </tr>
                     <?php }?>
                 </tbody>
@@ -27,16 +28,16 @@
         <div id="widget1container" class="block-body collapse in">
             <table class="table">
                 <tbody>
-                    <?php 
-                    if(is_array($this->data['mongoinfo'])){
-                    foreach($this->data['mongoinfo'] as $k=>$v){ 
-                        ?>
-                    <tr>
-                        <td><?php echo $k;?></td>
-                        <td><?php print_r($v);?></td>
-                    </tr>
-                    <?php 
-                    }                    
+                    <?php
+                    if(is_a($this->data['mongoinfo'], 'MongoDB\Model\BSONDocument')){
+                        foreach($this->data['mongoinfo'] as $k=>$v){
+                            ?>
+                        <tr>
+                            <td><?php echo $k;?></td>
+                            <td><?php print_r($v);?></td>
+                        </tr>
+                        <?php
+                        }
                     } ?>
                 </tbody>
             </table>

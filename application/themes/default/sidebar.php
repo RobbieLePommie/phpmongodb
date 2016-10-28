@@ -2,7 +2,7 @@
 <div class="sidebar-nav">
     <?php
     $dbList = Widget::get('DBList');
-    if (is_array($dbList['databases'])) {
+    if (is_array($dbList)) {
         $chttp = new Chttp();
         $dbName = $chttp->getParam('db');
         if (empty($dbName)) {
@@ -10,7 +10,7 @@
 
             <ul  class="nav nav-list collapse in bodymargin">
                 <?php
-                foreach ($dbList['databases'] as $db) {
+                foreach ($dbList as $db) {
                     ?>
                     <a href="<?php echo Theme::URL('Collection/Index', array('db' => $db['name'])); ?>" class="nav-header" >
                         <i class="icon-database"></i><?php echo $db['name']; ?><span class="label label-info"><?php echo!empty($db['noOfCollecton']) ? $db['noOfCollecton'] : ''; ?></span></a>
@@ -20,7 +20,7 @@
             </ul>
             <?php
         } else {
-            foreach ($dbList['databases'] as $db) {
+            foreach ($dbList as $db) {
 
                 if ($dbName == $db['name']) {
                     $collectionList = Widget::get('CollectonList');

@@ -7,29 +7,32 @@ class WidgetController extends Controller {
     public function getDBList() {
         $model = new Model();
         $dbList = $model->listDatabases();
-        if (isset($dbList['databases']) && is_array($dbList['databases'])) {
-            foreach ($dbList['databases'] as $k => $db) {
-                $dbList['databases'][$k]['noOfCollecton'] = count($model->listCollections($db['name'], TRUE));
-            }
-            return $dbList;
-        }else{
-            return Helper::getLoginDatabase();
+        $aRetVal = array();
 
-            
+        foreach($dbList as $dbItem) {
+            if (isset($dbItem['databases']) && is_a($dbItem['databases'], 'MongoDB\Model\BSONArray')) {
+                foreach ($dbItem['databases'] as $db) {
+                    $aRetVal[] = [
+                        'name' => $db['name'],
+                        'noOfCollecton' => iterator_count($model->listCollections($db['name'], array()))
+                    ];
+                }
+            } else {
+                $aRetVal = Helper::getLoginDatabase();
+            }
         }
-        return FALSE;
+        return $aRetVal;
     }
 
     public function getCollectonList() {
         $chttp = new Chttp();
         $db = $chttp->getParam('db');
         if (!empty($db)) {
-            $model = new Model();
-            $collections = $model->listCollections($db, TRUE);
-
+            $model = new Collection();
+            $collections = $model->listCollections($db, array());
             $collectionList = array();
             foreach ($collections as $collection) {
-                $collectionList[] = array('name' => $collection->getName(), 'count' => $collection->count());
+                $collectionList[] = array('name' => $collection->getName(), 'count' => $model->totalRecord($db, $collection->getName()));
             }
             return $collectionList;
         } else {

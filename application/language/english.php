@@ -46,7 +46,7 @@ $language = array(
     'B_I' => 'Build Information',
     //application/views/Database/index.php
     'NAME' => 'Name',
-    'S_O_D' => 'size On Disk',
+    'S_O_D' => 'Size On Disk',
     'C_DB' => 'Create Database',
     'SAVE' => 'Save',
     'CANCEL' => 'Cancel',
@@ -109,7 +109,7 @@ $language = array(
     'Y_C_N_U_C_F_C_N' => 'You can not use characters /\. "*<>:|? for collection name',
     'A_D_I_S' => 'All data import successfully.',
     'E_U_F' => 'Error: unexpected fail',
-    
+
 );
 ?>
 

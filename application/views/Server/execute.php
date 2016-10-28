@@ -4,6 +4,9 @@
 <div class="btn-toolbar">&nbsp;</div>
 
 <div class="well" >
+    WARNING: The 'eval' command, which this function relies on, is deprecated in MongoDB 3.0+. <br><br>
+    This function is not currently available.
+    <!--
     <form id="execute-form" name="form" method="post" action="index.php?load=Server/Execute&theme=false">
         <textarea name="code"  class="input-xlarge" style="width:950px;" id="execute_code"><?php echo $this->data['code']; ?></textarea>
         <table id="tbl-fiedl-value">
@@ -11,11 +14,16 @@
         <div>
             Database : <select style="width:auto;" name="db" id="execute_db">
                 <?php
-                foreach ($this->data['databases']['databases'] as $db) {
+
+                $it = new \IteratorIterator($this->data['databases']);
+                $it->rewind(); // Very important
+                $doc = $it->current();
+
+                foreach ($doc->databases as $db) {
                     $selected = ($this->data['db'] == $db['name'] ? 'selected="selected"' : '');
                     echo '<option value="' . $db['name'] . '" ' . $selected . '>' . $db['name'] . '</option>';
                 }
-                ?>    
+                ?>
             </select>
             Argument<a href="javascript:void(0)" class="icon-plus" title="<?php I18n::p('ADD'); ?>"  onclick="PMDE.appendBox()">&nbsp;</a>
         </div>
@@ -32,7 +40,9 @@
             print_r($this->data['response']);
             echo "</pre>";
         }
-        ?> 
+        ?>
     </p>
+
+    -->
 </div>
 <div id="execute-response"></div>

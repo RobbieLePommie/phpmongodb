@@ -10,7 +10,7 @@ abstract class Data {
     protected $data = array();
 
     /**
-     * 
+     *
      * @param mixed $name
      * @return mixed
      * @author Nanhe Kumar <nanhe.kumar@gmail.com>
@@ -26,7 +26,7 @@ abstract class Data {
     }
 
     /**
-     * 
+     *
      * @param string $name
      * @param mixed $value
      * @author Nanhe Kumar <nanhe.kumar@gmail.com>
@@ -37,7 +37,7 @@ abstract class Data {
     }
 
     /**
-     * 
+     *
      * @param string $name
      * @return mixed
      * @author Nanhe Kumar <nanhe.kumar@gmail.com>
@@ -48,7 +48,7 @@ abstract class Data {
     }
 
     /**
-     * 
+     *
      * @param mixed $name
      * @author Nanhe Kumar <nanhe.kumar@gmail.com>
      * @access public

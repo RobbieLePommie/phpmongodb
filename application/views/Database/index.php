@@ -17,12 +17,15 @@
                 </thead>
                 <tbody>
                     <?php
-                    if (isset($this->data['dbList']['databases']) && is_array($this->data['dbList']['databases'])) {
-                        foreach ($this->data['dbList']['databases'] as $db) {
+
+                        $it = new \IteratorIterator($this->data['dbList']);
+                        $it->rewind(); // Very important
+                        $databases = $it->current();
+                        foreach ($databases['databases'] as $db) {
                             ?>
                             <tr>
                                 <td><a href="<?php echo Theme::URL('Collection/Index', array('db' => $db['name'])); ?>"><?php echo $db['name']; ?></i></td>
-                                <td><?php echo $db['sizeOnDisk']; ?></td>
+                                <td style="text-align: right;"><?php echo number_format($db['sizeOnDisk']); ?></td>
                                 <?php if (!Application::isReadonly()) { ?>
                                     <td>
                                         <a href="#myModal" data-db-exist="yes" data-edit-db="<?php echo $db['name']; ?>" role="button" data-toggle="modal" class="icon-edit" title="Edit">&nbsp;</a>
@@ -32,8 +35,7 @@
                             </tr>
                             <?php
                         }
-                    }
-                    
+
                     ?>
                     <?php
                         if(count($this->data['databases'])){

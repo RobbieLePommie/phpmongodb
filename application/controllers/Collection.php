@@ -34,20 +34,17 @@ class CollectionController extends Controller {
     }
 
     public function Index() {
-
         $this->setDB();
         if ($this->isValidDB($this->db)) {
             $model = $this->getModel();
-            $collections = $model->listCollections($this->db, TRUE);
+            $collections = $model->listCollections($this->db, array());
             $collectionList = array();
             foreach ($collections as $collection) {
-                $collectionList[] = array('name' => $collection->getName(), 'count' => $collection->count());
+                $collectionList[] = array('name' => $collection->getName(), 'count' => $model->totalRecord($this->db, $collection->getName()));
             }
-            //$this->debug($collectionList);
             $data = array(
                 'collectionList' => $collectionList,
             );
-            //$this->debug($data);
             $this->application->view = 'Collection';
             $this->display('index', $data);
         } else {
@@ -91,7 +88,7 @@ class CollectionController extends Controller {
         $indexes = $model->getIndexInfo($this->db, $this->collection);
         foreach ($indexes as $index) {
             if ($index['name'] === $name) {
-                $response = $model->deleteIndex($this->db, $this->collection, $index['key']);
+                $response = $model->deleteIndex($this->db, $this->collection, $index['name']);
                 $this->message->sucess = I18n::t('I_D');
                 break;
             }
@@ -150,7 +147,7 @@ class CollectionController extends Controller {
         }
         $query = $cryptography->executeAND($query);
         $query = $cryptography->executeOR($query);
- 
+
         return $query[0];
     }
 
@@ -177,8 +174,8 @@ class CollectionController extends Controller {
         $cryptography = new Cryptography();
         if ($this->validation($this->db, $this->collection)) {
             $record = array();
-            $skip = $this->request->getParam('start', 0);
-            $limit = $this->request->getParam('limit', 10);
+            $skip = (int)$this->request->getParam('start', 0);
+            $limit = (int)$this->request->getParam('limit', 10);
             $type = strtolower($this->request->getParam('type', 'array'));
             $query = array();
             $fields = array();
@@ -202,12 +199,7 @@ class CollectionController extends Controller {
             if (!$this->isError()) {
                 $ordeBy = $this->getSort($this->request->getParam('order_by', false), $this->request->getParam('orders', false));
                 $cursor = $this->getModel()->find($this->db, $this->collection, $query, $fields, $limit, $skip, $type,$ordeBy);
-                if($type=='json'){
-                    $total=$this->getModel()->totalRecord($this->db, $this->collection, $query,$type);
-                }else{
-                    $total=$cursor->count();
-                }
-                
+                $total = $this->getModel()->totalRecord($this->db, $this->collection, $query, $type);
                 $record = $cryptography->decode($cursor, $type);
             }
             $this->application->view = 'Collection';
@@ -324,7 +316,7 @@ class CollectionController extends Controller {
                     break;
                 case 'json':
                     $response = $this->getModel()->insert($this->db, $this->collection, $this->request->getParam('data'), 'json');
-                    if ($response['ok'] == 1) {
+                    if ($response && $response->getInsertedCount()) {
                         $this->message->sucess = I18n::t('R_I');
                     } else {
                         $this->message->error = I18n::t('I_J');
@@ -397,9 +389,9 @@ class CollectionController extends Controller {
         $this->setDB();
         if (!empty($this->db)) {
             $this->setCollection();
-            $capped = $this->request->getPost('capped', FALSE);
-            $size = $this->request->getPost('size', 0);
-            $max = $this->request->getPost('max', 0);
+            $capped = ($this->request->getPost('capped') ? true : false);
+            $size = (int)$this->request->getPost('size', 0);
+            $max = (int)$this->request->getPost('max', 0);
 
             if (!empty($this->collection)) {
                 $this->getModel()->createCollection($this->db, $this->collection, $capped, $size, $max);
@@ -462,8 +454,7 @@ class CollectionController extends Controller {
         $file = new File(sys_get_temp_dir(), $this->collection . '.json');
         $file->delete();
         $cryptography = new Cryptography();
-        while ($cursor->hasNext()) {
-            $document = $cursor->getNext();
+        foreach ($cursor as $document) {
             $json = $cryptography->arrayToJSON($document);
             $json = str_replace(array("\n", "\t"), '', $json);
             $file->write($json . "\n");
@@ -478,8 +469,8 @@ class CollectionController extends Controller {
     protected function customExport() {
         $fields = array();
         $query = array();
-        $limit = $this->request->getParam('limit');
-        $skip = $this->request->getParam('skip');
+        $limit = (int)$this->request->getParam('limit');
+        $skip = (int)$this->request->getParam('skip');
         $limit = empty($limit) ? false : $limit;
         $skip = empty($skip) ? false : $skip;
         $path = sys_get_temp_dir();
@@ -489,8 +480,7 @@ class CollectionController extends Controller {
         $file = new File($path, $fileName);
         $file->delete();
         $cryptography = new Cryptography();
-        while ($cursor->hasNext()) {
-            $document = $cursor->getNext();
+        foreach ($cursor as $document) {
             $file->write($cryptography->arrayToJSON($document) . "\n");
         }
         if ($this->request->getParam('text_or_save') == 'save') {

@@ -5,7 +5,7 @@ class Database extends Model {
 
     public function createDB($name) {
         try {
-            return $this->mongo->selectDB($name)->execute("function(){}");
+            return $this->mongo->selectDatabase($name);
         } catch (Exception $e) {
 
             return $e->getMessage();
@@ -41,19 +41,25 @@ class Database extends Model {
         return $this->mongo->{$db}->repair();
     }
 
+/*
     public function execute($db, $code, array $args = array()) {
         try {
-            return $this->mongo->{$db}->execute($code, $args);
+            $command = new MongoDB\Driver\Command(['ping' => 1]);
+            return $this->mongo->executeCommand($db, $code, $args);
         } catch (Exception $e) {
 
             return $e->getMessage();
         }
     }
-
-    public function isDbExist($db) {
+*/
+        public function isDbExist($db) {
         $databases = $this->listDatabases();
-        foreach ($databases['databases'] as $database){
-            $dbList[]=$database['name'];
+
+        $it = new \IteratorIterator($databases);
+        $it->rewind(); // Very important
+        $databases = $it->current();
+        foreach ($databases['databases'] as $db) {
+            $dbList[]=$db->name;
         }
         $seesion = Application::getInstance('Session');
         $tmpDbList = (!empty($seesion->databases) ? $seesion->databases : array());

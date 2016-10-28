@@ -9,8 +9,9 @@ class Model {
         $session = Application::getInstance('Session');
         $mongo = PHPMongoDB::getInstance($session->server, $session->options);
         $exception = $mongo->getExceptionMessage();
-        if ($exception)
+        if ($exception) {
             exit($exception);
+        }
         $this->mongo = $mongo->getConnection();
     }
 
@@ -24,7 +25,14 @@ class Model {
 
     public function getMongoInfo() {
         try {
-            return $this->mongo->admin->command(array('buildinfo' => true));
+            $cursor = $this->mongo->admin->command(array('buildinfo' => true));
+            $retval = 'false';
+            if ($cursor) {
+                foreach ($cursor as $document) {
+                    $retval = $document;
+                }
+            }
+            return $retval;
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -60,40 +68,59 @@ class Model {
         }
     }
 
-//    public function listCollections($db,$includeSystemCollections = false ) {
-//        return $this->mongo->{$db}->listCollections($includeSystemCollections);
-//    }
 //
 //    public function getCollectionNames($db,$includeSystemCollections = false ) {
 //        return $this->mongo->{$db}->getCollectionNames($includeSystemCollections);
 //    }
 
 
-    public function find($db, $collection, $query, $fields = array(), $limit = false, $skip = false, $fromat = 'array', $ordeBy = array('_id' => 1)) {
+    public function find($db, $collection, $query = array(), $fields = array(), $limit = false, $skip = false, $format = 'array', $orderBy = array('_id' => 1)) {
+        $aOptions = [];
+        if ($skip !== false) {
+            $aOptions['skip'] = $skip;
+        }
+        if ($limit !== false) {
+            $aOptions['limit'] = $limit;
+        }
+        if ($orderBy !== false) {
+            $aOptions['sort'] = $orderBy;
+        }
+
+
         try {
-            if ($fromat == 'json') {
+            $retval = $this->mongo->{$db}->{$collection}->find($query, $aOptions);
+//            if ($format == 'array') {
+//                $retval = $retval->toArray();
+//            }
+/*
+            if ($format == 'json') {
+                $aRetVal = array();
+
                 $code = "return db.getCollection('" . $collection . "').find(" . $query . ").limit(" . $limit . ").skip(" . $skip . ").sort(" . json_encode($ordeBy) . ").toArray();";
                 $response = $this->mongo->{$db}->execute($code);
                 if ($response['ok'] == 1) {
                     return $response['retval'];
                 }
             } else {
-                return $this->mongo->{$db}->{$collection}->find($query, $fields)->limit($limit)->skip($skip)->sort($ordeBy);
+                $retval = $cursor;
             }
             return false;
+*/
         } catch (Exception $e) {
             exit($e->getMessage());
         }
+        return $retval;
     }
 
-    public function insert($db, $collection, $a, $fromat = 'array', $options = array()) {
+    public function insert($db, $collection, $a, $format = 'array', $options = array()) {
         try {
-            if ($fromat == 'json') {
-                $code = "db.getCollection('" . $collection . "').insert(" . $a . ");";
-                return $this->mongo->{$db}->execute($code);
-            } else {
-                return $this->mongo->{$db}->{$collection}->insert($a);
+            if ($format == 'json') {
+                $a = @json_decode($a);
+                if (json_last_error() !== JSON_ERROR_NONE) {
+                    return false;
+                }
             }
+            return $this->mongo->{$db}->{$collection}->insertOne($a);
         } catch (Exception $e) {
             exit($e->getMessage());
         }
@@ -101,13 +128,13 @@ class Model {
 
     public function serverStatus() {
         try {
-            $response = $this->mongo->admin->command(array('serverStatus' => 1,));
+            $response = $this->mongo->admin->command(array('serverStatus' => 1));
             return $response;
         } catch (Exception $e) {
             return $e->getMessage();
         }
     }
-    
+
     public function updateTemporaryDb($db, $oldDb) {
         $seesion = Application::getInstance('Session');
         $databases = (!empty($seesion->databases) ? $seesion->databases : array());

@@ -19,10 +19,11 @@ class Application extends Data {
     protected static $_isReadOnly=NULL;
 
     public function init() {
-        
+
         $chttp = new CHttp();
         $session=self::getInstance('Session');
         $session->start();
+// $_SESSION = array();
         $session->setDefaultKey();
         if (!$session->isLogedIn()) {
             $this->controller = self::LOGIN_CONTROLLER;

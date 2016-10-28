@@ -29,12 +29,23 @@ class Engine {
     }
 
     public function environmentDetection() {
-       
+
         if (!version_compare(PHP_VERSION, "5.0")) {
             exit("To make things right, you must install PHP5");
         }
-        if (!class_exists("Mongo") && !class_exists("MongoClient")) {
-            exit("To make things right, you must install php_mongo module. <a href=\"http://www.php.net/manual/en/mongo.installation.php\" target=\"_blank\">Here for installation documents on PHP.net.</a>");
+
+        if (!file_exists(realpath(__DIR__ . '/../vendor/autoload.php'))) {
+            exit("To make things right, you must run 'composer install'. Please refer to the read me.");
+        }
+
+        if (phpversion("mongodb") === false) {
+            exit("To make things right, you must install the MongDB drivers. http://php.net/manual/en/set.mongodb.php");
+        }
+
+        require(realpath(__DIR__ . '/../vendor/autoload.php'));
+
+        if (!class_exists('MongoDB\Client')) {
+            exit("To make things right, you must run 'composer install'. Please refer to the read me 2.</a>");
         }
     }
 

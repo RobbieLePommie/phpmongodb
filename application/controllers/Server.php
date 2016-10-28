@@ -23,11 +23,9 @@ class ServerController extends Controller {
             $response = $model->execute($db, $code, $args);
         }
         $dbList = $model->listDatabases();
-        if (!isset($dbList['databases'])) {
-            $dbList = Helper::getLoginDatabase();
-        }
+
         $layout=$this->request->isAjax()?'command':'execute';
-       
+
         $this->display($layout, array(
             'databases' => $dbList,
             'code' => isset($code) ? $code : 'db.getCollectionNames()',

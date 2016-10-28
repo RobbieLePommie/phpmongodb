@@ -26,7 +26,7 @@ class PHPMongoDB {
     }
 
     /**
-     * 
+     *
      * @return mixed (Object of MongoClient|Mongo
      */
     public function getConnection() {
@@ -40,22 +40,18 @@ class PHPMongoDB {
     }
 
     /**
-     * 
+     *
      * @param string $server  [optional]
      * @param array $options [optional]
      */
     private function __construct($server = '', array $options = array()) {
 
         try {
-            if (class_exists("MongoClient")) {
-                $this->mongo = new MongoClient($server, $options);
-            } else {
-                $this->mongo = new Mongo($server, $options);
-            }
+            $this->mongo = new MongoDB\Client($server, $options);
         } catch (Exception $e) {
             $this->exception=$e;
             $this->mongo =FALSE;
-           
+
         }
     }
 

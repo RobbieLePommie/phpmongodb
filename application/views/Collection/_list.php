@@ -4,7 +4,7 @@
     <a class="icon-remove" title="Delete" href="javascript:void(0)" id="delete-all" >Delete</a>
     <input type="hidden" name="db-hidden" id="db-hidden" value="<?php echo $this->db;?>" />
     <input type="hidden" name="collection-hidden" id="collection-hidden" value="<?php echo $this->collection;?>" />
-</div> 
+</div>
 <?php }?>
 <div class="well">
     <?php
@@ -15,7 +15,7 @@
         ?>
         <?php
         if ($showTab) {
-            ?>    
+            ?>
             <ul class="nav nav-tabs">
                 <li id="li-json"class="active"><a href="javascript:void(0)" data-list-record="json"><?php I18n::p('JSON'); ?></a></li>
                 <li id="li-array"><a href="javascript:void(0)" data-list-record="array"><?php I18n::p('Array'); ?></a></li>
@@ -36,7 +36,7 @@
                     $pkv=$this->data['record']['document'][$i]['_id'];
                     if($idType=='object'){
                         $idType=  get_class($this->data['record']['document'][$i]['_id']);
-                        if($idType=='MongoDate'){                            
+                        if($idType=='MongoDate'){
                             $pkv=$pkv->sec.','.$pkv->usec;
                         }
                     }
@@ -54,7 +54,7 @@
             }
             ?>
 
-            
+
         </div>
         <?php
     }
@@ -62,7 +62,7 @@
         echo I18n::p('N_R_F');
     }
     ?>
-    
+
 </div>
 
 <?php Theme::pagination($this->data['total']); ?>

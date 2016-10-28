@@ -63,7 +63,7 @@ class DatabaseController extends Controller {
         if (!empty($db)) {
             if (!$this->getModel()->isDbExist($db)) {
                 $response = $this->getModel()->createDB($db);
-                if ($response['ok'] == 1) {
+                if ($response) {
                     $this->message->sucess = I18n::t('D_C', $db);
                     $this->getModel()->saveTemporaryDb($db);
                 } else {
