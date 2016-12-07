@@ -1,9 +1,11 @@
 <?php
-
 /**
  * @package PHPmongoDB
- * @version 1.0.0
+ * @version 2.0.0
  */
+
+namespace PHPMongoDB\PHPMongoDB;
+
 defined('PMDDA') or die('Restricted access');
 
 class PHPMongoDB {
@@ -47,7 +49,7 @@ class PHPMongoDB {
     private function __construct($server = '', array $options = array()) {
 
         try {
-            $this->mongo = new MongoDB\Client($server, $options);
+            $this->mongo = new \MongoDB\Client($server, $options);
         } catch (Exception $e) {
             $this->exception=$e;
             $this->mongo =FALSE;

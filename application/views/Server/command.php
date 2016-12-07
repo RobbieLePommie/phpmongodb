@@ -1,4 +1,15 @@
+<?php
 
+/**
+ * @package PHPmongoDB
+ * @version 2.0.0
+ */
+
+namespace PHPMongoDB\PHPMongoDB;
+
+defined('PMDDA') or die('Restricted access');
+
+?>
 <div class="header">
     <h1 class="page-title">Output</h1>
 </div>
@@ -14,6 +25,6 @@
             print_r($this->data['response']);
             echo "</pre>";
         }
-        ?> 
+        ?>
     </p>
 </div>

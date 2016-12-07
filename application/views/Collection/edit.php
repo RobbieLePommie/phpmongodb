@@ -1,4 +1,15 @@
-<?php require_once '_menu.php'; ?>
+<?php
+
+/**
+ * @package PHPmongoDB
+ * @version 2.0.0
+ */
+
+namespace PHPMongoDB\PHPMongoDB;
+
+defined('PMDDA') or die('Restricted access');
+
+?><?php require_once '_menu.php'; ?>
 <div class="well" id="container-insert" >
     <ul class="nav nav-tabs">
         <li class="<?php echo $this->data['format'] === 'array'?'active':''; ?>">

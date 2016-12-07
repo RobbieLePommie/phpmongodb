@@ -1,8 +1,11 @@
 <?php
 /**
  * @package PHPmongoDB
- * @version 1.0.0
+ * @version 2.0.0
  */
+
+namespace PHPMongoDB\PHPMongoDB;
+
 defined('PMDDA') or die('Restricted access');
 
 class Cryptography {
@@ -101,9 +104,9 @@ class Cryptography {
     }
 
     function arrayToJSON($array, $tab = "") {
-        if (is_a($array, 'MongoDB\Model\BSONDocument')) {
-            $bson = MongoDB\BSON\fromPHP($array);
-            return MongoDB\BSON\toJSON($bson);
+        if (is_a($array, '\MongoDB\Model\BSONDocument')) {
+            $bson = \MongoDB\BSON\fromPHP($array);
+            return \MongoDB\BSON\toJSON($bson);
         } elseif (is_array($array)) {
             $associative = count(array_diff(array_keys($array), array_keys(array_keys($array))));
             if ($associative) {
@@ -191,9 +194,9 @@ class Cryptography {
             case "MongoCode":
                 $json = $object->__toString();
                 break;
-            case "MongoDB\Model\BSONDocument":
-                $bson = MongoDB\BSON\fromPHP($object);
-                $json =  MongoDB\BSON\toJSON($bson);
+            case "\MongoDB\Model\BSONDocument":
+                $bson = \MongoDB\BSON\fromPHP($object);
+                $json =  \MongoDB\BSON\toJSON($bson);
                 break;
             default:
                 if (method_exists($object, "__toString")) {

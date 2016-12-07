@@ -1,5 +1,15 @@
-<?php defined('PMDDA') or die('Restricted access'); ?>
-<div class="sidebar-nav">
+<?php
+
+/**
+ * @package PHPmongoDB
+ * @version 2.0.0
+ */
+
+namespace PHPMongoDB\PHPMongoDB;
+
+defined('PMDDA') or die('Restricted access');
+
+?><div class="sidebar-nav">
     <?php
     $dbList = Widget::get('DBList');
     if (is_array($dbList)) {

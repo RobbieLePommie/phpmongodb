@@ -1,8 +1,11 @@
 <?php
 /**
  * @package PHPmongoDB
- * @version 1.0.0
+ * @version 2.0.0
  */
+
+namespace PHPMongoDB\PHPMongoDB;
+
 defined('PMDDA') or die('Restricted access');
 
 class System {
@@ -19,7 +22,8 @@ class System {
     }
 
     protected function getObject($class) {
-        return new $class;
+        $nameSpacedClass = 'PHPMongoDB\\PHPMongoDB\\' . $class;
+        return new $nameSpacedClass;
     }
 
     protected function getProperties() {
@@ -44,7 +48,7 @@ class System {
             } else {
                 throw new Exception('Method  ' . $this->application->action . ' doe not exitst');
             }
-           
+
         } catch (Exception $e) {
             echo 'Caught exception: ', $e->getMessage(), "\n";
             exit();

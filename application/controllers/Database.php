@@ -2,9 +2,11 @@
 
 /**
  * @package PHPmongoDB
- * @version 1.0.0
- * @link http://www.phpmongodb.org
+ * @version 2.0.0
  */
+
+namespace PHPMongoDB\PHPMongoDB;
+
 defined('PMDDA') or die('Restricted access');
 
 class DatabaseController extends Controller {

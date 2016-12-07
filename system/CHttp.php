@@ -1,9 +1,17 @@
 <?php
+/**
+ * @package PHPmongoDB
+ * @version 2.0.0
+ */
+
+namespace PHPMongoDB\PHPMongoDB;
+
+defined('PMDDA') or die('Restricted access');
 
 class CHttp {
 
     protected $XSS=TRUE;
-    
+
     public function onXSS(){
         $this->XSS=TRUE;
     }

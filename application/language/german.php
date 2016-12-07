@@ -1,8 +1,12 @@
 <?php
 
 /**
- * @package PHPMongoDB
+ * @package PHPmongoDB
+ * @version 2.0.0
  */
+
+namespace PHPMongoDB\PHPMongoDB;
+
 $language = array(
     //Common
     'I_A' => 'Ungültige Aktion',

@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * @package PHPmongoDB
+ * @version 2.0.0
+ */
+
+namespace PHPMongoDB\PHPMongoDB;
+
 defined('PMDDA') or die('Restricted access');
 
 class WidgetController extends Controller {
@@ -10,7 +17,7 @@ class WidgetController extends Controller {
         $aRetVal = array();
 
         foreach($dbList as $dbItem) {
-            if (isset($dbItem['databases']) && is_a($dbItem['databases'], 'MongoDB\Model\BSONArray')) {
+            if (isset($dbItem['databases']) && is_a($dbItem['databases'], '\MongoDB\Model\BSONArray')) {
                 foreach ($dbItem['databases'] as $db) {
                     $aRetVal[] = [
                         'name' => $db['name'],

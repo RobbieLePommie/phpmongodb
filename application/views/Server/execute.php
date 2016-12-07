@@ -1,4 +1,15 @@
-<div class="header">
+<?php
+
+/**
+ * @package PHPmongoDB
+ * @version 2.0.0
+ */
+
+namespace PHPMongoDB\PHPMongoDB;
+
+defined('PMDDA') or die('Restricted access');
+
+?><div class="header">
     <h1 class="page-title">Execute</h1>
 </div>
 <div class="btn-toolbar">&nbsp;</div>

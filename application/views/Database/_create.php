@@ -1,4 +1,15 @@
-<div class="block span6">
+<?php
+
+/**
+ * @package PHPmongoDB
+ * @version 2.0.0
+ */
+
+namespace PHPMongoDB\PHPMongoDB;
+
+defined('PMDDA') or die('Restricted access');
+
+?><div class="block span6">
         <p class="block-heading" id="block-heading"><?php I18n::p('C_DB');?></p>
         <div class="block-body">
             <form id="form-create-database" method="post" class="form-inline" action="index.php">

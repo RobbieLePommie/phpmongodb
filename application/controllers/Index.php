@@ -1,18 +1,21 @@
 <?php
 /**
  * @package PHPmongoDB
- * @version 1.0.0
- * @link http://www.phpmongodb.org
+ * @version 2.0.0
  */
+
+namespace PHPMongoDB\PHPMongoDB;
+
 defined('PMDDA') or die('Restricted access');
-class IndexController extends Controller{
+
+class IndexController extends Controller {
     public function Index(){
         $data=array(
             'phpversion'=>phpversion(),
             'webserver'=>$this->request->serverSoftware(),
             'mongoinfo'=>  $this->getModel()->getMongoInfo(),
         );
-       
+
         $this->display('index',$data);
     }
     public function SetLanguage(){
@@ -36,6 +39,6 @@ class IndexController extends Controller{
             'cryptography'=>new Cryptography(),
         );
         $this->display('status', $data);
-        
+
     }
 }

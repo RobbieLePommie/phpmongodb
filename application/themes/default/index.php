@@ -1,18 +1,31 @@
-<?php defined('PMDDA') or die('Restricted access'); ?>
-<?php $isLogedIn=Application::getInstance('Session')->isLogedIn(); ?>
-<?php include('header.php'); ?>
-<?php $isLogedIn ?include('sidebar.php'):'';?>
+<?php
 
+/**
+ * @package PHPmongoDB
+ * @version 2.0.0
+ */
 
-<div class="bodymargin <?php echo $isLogedIn?'content':'content-gap';?>">
+namespace PHPMongoDB\PHPMongoDB;
+
+defined('PMDDA') or die('Restricted access');
+
+$isLogedIn=Application::getInstance('Session')->isLogedIn();
+
+include('header.php');
+
+if ($isLogedIn) {
+    include('sidebar.php');
+}
+
+?><div class="bodymargin <?php echo $isLogedIn?'content':'content-gap';?>">
     <!--Call View -->
     <div class="container-fluid">
         <div class="row-fluid">
             <?php
-            
+
             $sucess = isset(View::getMessage()->sucess);
             $error = isset(View::getMessage()->error);
-            
+
             ?>
             <?php if ($sucess || $error) { ?>
                 <div class="alert <?php echo $sucess == true ? 'alert-info' : '' ?>">

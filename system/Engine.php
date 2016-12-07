@@ -1,8 +1,11 @@
 <?php
 /**
  * @package PHPmongoDB
- * @version 1.0.0
+ * @version 2.0.0
  */
+
+namespace PHPMongoDB\PHPMongoDB;
+
 defined('PMDDA') or die('Restricted access');
 
 class Engine {
@@ -44,7 +47,7 @@ class Engine {
 
         require(realpath(__DIR__ . '/../vendor/autoload.php'));
 
-        if (!class_exists('MongoDB\Client')) {
+        if (!class_exists('\MongoDB\Client')) {
             exit("To make things right, you must run 'composer install'. Please refer to the read me 2.</a>");
         }
     }
@@ -62,18 +65,23 @@ class Engine {
     }
 
     public static function autoloadSystem($class) {
-
-        $fileWithPath = dirname(__FILE__) . '/' . $class . '.php';
+        $parts = explode('\\', $class);
+        $filename = end($parts);
+        $fileWithPath = dirname(__FILE__) . '/' . $filename . '.php';
         self::includes($fileWithPath);
     }
 
     public static function autoloadController($class) {
-        $fileWithPath = getcwd() . '/application/controllers/' . str_replace('Controller', '', $class) . '.php';
+        $parts = explode('\\', $class);
+        $filename = end($parts);
+        $fileWithPath = getcwd() . '/application/controllers/' . str_replace('Controller', '', $filename) . '.php';
         self::includes($fileWithPath);
     }
 
     public static function autoloadModel($class) {
-        $fileWithPath = getcwd() . '/application/models/' . $class . '.php';
+        $parts = explode('\\', $class);
+        $filename = end($parts);
+        $fileWithPath = getcwd() . '/application/models/' . $filename . '.php';
         self::includes($fileWithPath);
     }
 

@@ -1,4 +1,15 @@
+<?php
 
+/**
+ * @package PHPmongoDB
+ * @version 2.0.0
+ */
+
+namespace PHPMongoDB\PHPMongoDB;
+
+defined('PMDDA') or die('Restricted access');
+
+?>
 <div class="well" id="container-indexes">
 
 

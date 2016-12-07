@@ -1,8 +1,11 @@
 <?php
 /**
  * @package PHPmongoDB
- * @version 1.0.0
+ * @version 2.0.0
  */
+
+namespace PHPMongoDB\PHPMongoDB;
+
 defined('PMDDA') or die('Restricted access');
 
 class Widget {
@@ -20,7 +23,8 @@ class Widget {
     public static function get() {
         if (func_num_args() < 1)
             return false;
-        return call_user_func(array(new self::$controller, self::$prefix . func_get_arg(0)));
+        $nameSpacedClass = 'PHPMongoDB\\PHPMongoDB\\' . self::$controller;
+        return call_user_func(array(new $nameSpacedClass, self::$prefix . func_get_arg(0)));
     }
 
 }

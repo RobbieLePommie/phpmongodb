@@ -1,4 +1,15 @@
-<div class="tab-pane fade" id="IndexesCreate">
+<?php
+
+/**
+ * @package PHPmongoDB
+ * @version 2.0.0
+ */
+
+namespace PHPMongoDB\PHPMongoDB;
+
+defined('PMDDA') or die('Restricted access');
+
+?><div class="tab-pane fade" id="IndexesCreate">
     <form id="tab1" method="post" action="index.php">
         <table id="tbl-create-indexes">
             <tr>

@@ -1,8 +1,11 @@
 <?php
 /**
  * @package PHPmongoDB
- * @version 1.0.0
+ * @version 2.0.0
  */
+
+namespace PHPMongoDB\PHPMongoDB;
+
 defined('PMDDA') or die('Restricted access');
 
 class Application extends Data {
@@ -49,7 +52,8 @@ class Application extends Data {
     }
 
     public static function getInstance($class) {
-        return new $class();
+        $nameSpacedClass = 'PHPMongoDB\\PHPMongoDB\\' . $class;
+        return new $nameSpacedClass();
     }
     public static function isReadonly(){
         return self::$_isReadOnly;

@@ -1,9 +1,13 @@
 <?php
 
-defined('PMDDA') or die('Restricted access');
-/*
- * Model
+/**
+ * @package PHPmongoDB
+ * @version 2.0.0
  */
+
+namespace PHPMongoDB\PHPMongoDB;
+
+defined('PMDDA') or die('Restricted access');
 
 class Collection extends Model {
 

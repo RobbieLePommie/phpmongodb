@@ -1,4 +1,15 @@
-<div class="well" id="container-insert" style="<?php echo isset($this->data['isAjax'])?'display:block':'display:none';?>">
+<?php
+
+/**
+ * @package PHPmongoDB
+ * @version 2.0.0
+ */
+
+namespace PHPMongoDB\PHPMongoDB;
+
+defined('PMDDA') or die('Restricted access');
+
+?><div class="well" id="container-insert" style="<?php echo isset($this->data['isAjax'])?'display:block':'display:none';?>">
     <ul class="nav nav-tabs">
         <li class="active"><a href="#keyValue" data-toggle="tab"><?php I18n::p('F_V');?></a></li>
         <li ><a href="#Array" data-toggle="tab"><?php I18n::p('Array');?></a></li>
@@ -20,10 +31,10 @@
                             <a href="javascript:void(0)" class="icon-plus" title="<?php I18n::p('ADD');?>"  onclick="PMDI.appendTR('insert')">&nbsp;</a>
                         </td>
                     </tr>
-                   
+
                 </table>
                 <div>
-                    
+
                     <button class="btn btn-primary"><?php I18n::p('SAVE');?></button>
                 </div>
                 <input type="hidden"  name="load" value="Collection/SaveRecord"/>
@@ -48,7 +59,7 @@
         <div class="tab-pane fade" id="JSON">
             <form id="tab3" method="post" action="index.php">
                 <textarea name="data" rows="16" class="input-xlarge" style="width:950px;">{
-  
+
 }</textarea>
                 <div>
                     <button class="btn btn-primary"><?php I18n::p('SAVE');?></button>

@@ -1,5 +1,15 @@
-<?php defined('PMDDA') or die('Restricted access'); ?>
-<!DOCTYPE html>
+<?php
+
+/**
+ * @package PHPmongoDB
+ * @version 2.0.0
+ */
+
+namespace PHPMongoDB\PHPMongoDB;
+
+defined('PMDDA') or die('Restricted access');
+
+?><!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -49,8 +59,8 @@
     <!--[if IE 7 ]> <body class="ie ie7 "> <![endif]-->
     <!--[if IE 8 ]> <body class="ie ie8 "> <![endif]-->
     <!--[if IE 9 ]> <body class="ie ie9 "> <![endif]-->
-    <!--[if (gt IE 9)|!(IE)]><!--> 
-    <body class=""> 
+    <!--[if (gt IE 9)|!(IE)]><!-->
+    <body class="">
         <!--<![endif]-->
         <div class="navbar">
             <div class="navbar-inner">

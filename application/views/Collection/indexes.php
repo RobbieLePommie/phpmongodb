@@ -1,4 +1,15 @@
-<?php require_once '_menu.php'; ?>
+<?php
+
+/**
+ * @package PHPmongoDB
+ * @version 2.0.0
+ */
+
+namespace PHPMongoDB\PHPMongoDB;
+
+defined('PMDDA') or die('Restricted access');
+
+?><?php require_once '_menu.php'; ?>
 <div class="well" id="container-indexes">
     <ul class="nav nav-tabs">
         <li class="active"><a href="#IndexesList" data-toggle="tab"><?php I18n::p('LIST');?></a></li>

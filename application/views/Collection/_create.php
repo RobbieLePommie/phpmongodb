@@ -1,4 +1,15 @@
-<div class="block span6">
+<?php
+
+/**
+ * @package PHPmongoDB
+ * @version 2.0.0
+ */
+
+namespace PHPMongoDB\PHPMongoDB;
+
+defined('PMDDA') or die('Restricted access');
+
+?><div class="block span6">
         <p class="block-heading" id="block-heading"><?php echo I18n::t('CAE_COL');?></p>
         <div class="block-body">
             <form id="form-create-collection" method="post" class="form-inline" action="index.php">

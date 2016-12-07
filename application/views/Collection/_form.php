@@ -1,4 +1,15 @@
-<form method="post" name="form-delete-collection" id="form-delete-collection" action="index.php" >
+<?php
+
+/**
+ * @package PHPmongoDB
+ * @version 2.0.0
+ */
+
+namespace PHPMongoDB\PHPMongoDB;
+
+defined('PMDDA') or die('Restricted access');
+
+?><form method="post" name="form-delete-collection" id="form-delete-collection" action="index.php" >
 
     <div class="modal small hide fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-header">
@@ -19,7 +30,7 @@
     <input type="hidden" id="pop-up-load" name="load" value="" />
     <input type="hidden" name="db" id="pop-up-db" value="<?php echo $this->db; ?>" />
     <input type="hidden" id="pop-up-old_collection" name="old_collection" value="" />
-</form> 
+</form>
 
 
 

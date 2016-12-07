@@ -1,4 +1,17 @@
-<?php $autocomplete= isset(Config::$autocomplete) && Config::$autocomplete==TRUE ?'on':'off';?>
+<?php
+
+/**
+ * @package PHPmongoDB
+ * @version 2.0.0
+ */
+
+namespace PHPMongoDB\PHPMongoDB;
+
+defined('PMDDA') or die('Restricted access');
+
+$autocomplete= isset(Config::$autocomplete) && Config::$autocomplete==TRUE ?'on':'off';
+
+ ?>
 <div class="dialog">
     <div class="block">
         <p class="block-heading">Sign In</p>

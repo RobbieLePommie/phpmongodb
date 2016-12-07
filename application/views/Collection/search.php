@@ -1,4 +1,15 @@
-<?php require_once '_menu.php'; ?>
+<?php
+
+/**
+ * @package PHPmongoDB
+ * @version 2.0.0
+ */
+
+namespace PHPMongoDB\PHPMongoDB;
+
+defined('PMDDA') or die('Restricted access');
+
+?><?php require_once '_menu.php'; ?>
 <div class="well" id="container-indexes">
     <ul class="nav nav-tabs">
         <li class="active"><a href="#searchColVal" data-toggle="tab"><?php I18n::p('F_V'); ?></a></li>
@@ -77,7 +88,7 @@
         <div class="tab-pane fade" id="searchJSON">
             <form id="tab3" method="get" action="index.php">
                 <textarea name="query" rows="3" class="input-xlarge" style="width:1000px;">{
-  
+
 }</textarea>
                 <div>
                     <button class="btn btn-primary"><?php I18n::p('GO'); ?></button>

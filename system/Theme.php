@@ -1,8 +1,11 @@
 <?php
 /**
  * @package PHPmongoDB
- * @version 1.0.0
+ * @version 2.0.0
  */
+
+namespace PHPMongoDB\PHPMongoDB;
+
 defined('PMDDA') or die('Restricted access');
 
 class Theme {
@@ -10,7 +13,7 @@ class Theme {
     private static $themePath = '/application/themes/';
     private static $themeUri;
     private static $homeUri;
-    
+
     public static function getThemePath(){
         return self::$themePath.Config::$theme.'/';
     }
@@ -133,7 +136,7 @@ class Theme {
                 echo '<li><a href="' . self::paginationURL($url, (($current - 1) * $split)) . '">Prev</a></li>';
             }
 
-            
+
             for (; $page < $end; $page++) {
                 echo '<li class="' . ($current == $page ? "active" : "") . '"><a href="' . ($current != $page ? self::paginationURL($url, ($page * $split)) : 'javascript:void(0)') . '" >' . ($page + 1) . '</a></li>';
             }

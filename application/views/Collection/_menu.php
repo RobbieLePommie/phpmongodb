@@ -1,4 +1,15 @@
-<div class="header">
+<?php
+
+/**
+ * @package PHPmongoDB
+ * @version 2.0.0
+ */
+
+namespace PHPMongoDB\PHPMongoDB;
+
+defined('PMDDA') or die('Restricted access');
+
+?><div class="header">
     <h1 class="page-title"><i class="icon-database"></i><a href="<?php echo Theme::URL('Collection/Index', array('db' => $this->db)); ?>"><?php echo $this->db; ?></a> (<i class="icon-collection"></i><?php echo $this->collection; ?>) </h1>
 </div>
 <div class="btn-toolbar">

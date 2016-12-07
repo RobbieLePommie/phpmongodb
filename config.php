@@ -6,6 +6,8 @@
  * @package PHPMongoDB
  */
 
+namespace PHPMongoDB\PHPMongoDB;
+
 class Config {
 
     public static $theme = 'default';

@@ -1,9 +1,12 @@
 <?php
+
 /**
  * @package PHPmongoDB
- * @version 1.0.0
- * @link http://www.phpmongodb.org
+ * @version 2.0.0
  */
+
+namespace PHPMongoDB\PHPMongoDB;
+
 error_reporting(E_ALL | E_STRICT);
 ini_set('display_errors',1);
 define('PMDDA',TRUE);

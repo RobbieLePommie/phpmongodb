@@ -1,4 +1,15 @@
-<form method="post" name="form-drop-db" id="form-drop-db" action="index.php">
+<?php
+
+/**
+ * @package PHPmongoDB
+ * @version 2.0.0
+ */
+
+namespace PHPMongoDB\PHPMongoDB;
+
+defined('PMDDA') or die('Restricted access');
+
+?><form method="post" name="form-drop-db" id="form-drop-db" action="index.php">
     <div class="modal small hide fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -17,7 +28,7 @@
     <input type="hidden" id="pop-up-load" name="load" value="" />
     <input type="hidden" id="pop-up-old-database" name="old_db" value="" />
     <input type="hidden" id="pop-up-db-exist" name="db-exist" value="" />
-</form> 
+</form>
 
 <script type="text/javascript">
     $(document).ready(function() {

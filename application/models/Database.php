@@ -1,5 +1,14 @@
-<?php defined('PMDDA') or die('Restricted access'); ?>
 <?php
+
+/**
+ * @package PHPmongoDB
+ * @version 2.0.0
+ */
+
+namespace PHPMongoDB\PHPMongoDB;
+
+defined('PMDDA') or die('Restricted access');
+
 
 class Database extends Model {
 
@@ -44,7 +53,7 @@ class Database extends Model {
 /*
     public function execute($db, $code, array $args = array()) {
         try {
-            $command = new MongoDB\Driver\Command(['ping' => 1]);
+            $command = new \MongoDB\Driver\Command(['ping' => 1]);
             return $this->mongo->executeCommand($db, $code, $args);
         } catch (Exception $e) {
 

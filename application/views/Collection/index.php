@@ -1,4 +1,15 @@
-<div class="header">
+<?php
+
+/**
+ * @package PHPmongoDB
+ * @version 2.0.0
+ */
+
+namespace PHPMongoDB\PHPMongoDB;
+
+defined('PMDDA') or die('Restricted access');
+
+?><div class="header">
     <h1 class="page-title"><i class="icon-database"></i><?php echo $this->db; ?></h1>
 </div>
 <div class="row-fluid">
@@ -37,12 +48,12 @@
             </table>
         </div>
     </div>
-    <?php 
+    <?php
         if(!Application::isReadonly())
-            require_once '_create.php'; 
+            require_once '_create.php';
     ?>
 </div>
-<?php 
+<?php
         if(!Application::isReadonly())
-            require_once '_form.php'; 
+            require_once '_form.php';
     ?>

@@ -1,8 +1,11 @@
 <?php
 /**
  * @package PHPmongoDB
- * @version 1.0.0
+ * @version 2.0.0
  */
+
+namespace PHPMongoDB\PHPMongoDB;
+
 defined('PMDDA') or die('Restricted access');
 
 class File {
@@ -62,7 +65,7 @@ class File {
             unlink($this->path . $this->file);
          }
     }
-    
+
     /* creates a compressed zip file */
 
     function createZip($files = array(), $destination = '', $overwrite = false,$path=false) {

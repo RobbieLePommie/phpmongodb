@@ -1,4 +1,15 @@
-<div class="row-fluid">
+<?php
+
+/**
+ * @package PHPmongoDB
+ * @version 2.0.0
+ */
+
+namespace PHPMongoDB\PHPMongoDB;
+
+defined('PMDDA') or die('Restricted access');
+
+?><div class="row-fluid">
     <div class="block span6">
         <a href="#tablewidget" class="block-heading" data-toggle="collapse"><?PHP I18n::p('W_S');?></a>
         <div id="tablewidget" class="block-body collapse in">
@@ -29,7 +40,7 @@
             <table class="table">
                 <tbody>
                     <?php
-                    if(is_a($this->data['mongoinfo'], 'MongoDB\Model\BSONDocument')){
+                    if(is_a($this->data['mongoinfo'], '\MongoDB\Model\BSONDocument')){
                         foreach($this->data['mongoinfo'] as $k=>$v){
                             ?>
                         <tr>

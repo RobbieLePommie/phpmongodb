@@ -1,4 +1,15 @@
-<?php defined('PMDDA') or die('Restricted access'); ?>
+<?php
+
+/**
+ * @package PHPmongoDB
+ * @version 2.0.0
+ */
+
+namespace PHPMongoDB\PHPMongoDB;
+
+defined('PMDDA') or die('Restricted access');
+
+?>
 <div class="footer row-fluid">
     <div class="navbar-inner">
         <ul class="nav pull-right">
@@ -39,6 +50,6 @@
         }
 
     });
-</script>    
+</script>
 </body>
 </html>

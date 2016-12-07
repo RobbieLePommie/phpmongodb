@@ -1,4 +1,15 @@
-<div class="header">
+<?php
+
+/**
+ * @package PHPmongoDB
+ * @version 2.0.0
+ */
+
+namespace PHPMongoDB\PHPMongoDB;
+
+defined('PMDDA') or die('Restricted access');
+
+?><div class="header">
     <h1 class="page-title"><?php I18n::p('DB'); ?></h1>
 </div>
 <div class="row-fluid">
